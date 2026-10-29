@@ -29,7 +29,11 @@ Deck files: `docs/deck/categories.json`, `docs/deck/decisions.json`, `docs/deck/
 
 ## GitHub Pages
 
-The Vite build uses relative asset URLs. Build the app and configure GitHub Pages to publish the `dist` output using your preferred Pages workflow. No backend or secrets are required.
+The site is published at <https://mokshith2.github.io/Dollars-and-Decisions-helper-site/> by the workflow in `.github/workflows/deploy-pages.yml`. Every push to `main` runs `npm ci`, `npm run build`, and deploys `dist/` with GitHub's Pages actions. You can also run it by hand from **Actions → Deploy to GitHub Pages → Run workflow**.
+
+The first run needs Pages enabled for the repository. The workflow asks GitHub to enable it automatically; if that is rejected, open **Settings → Pages** once and set **Source** to **GitHub Actions**, then re-run the workflow.
+
+The Vite build uses relative asset URLs, so the site works from the `/Dollars-and-Decisions-helper-site/` project path without changing `base`. No backend or secrets are required.
 
 ## License
 
