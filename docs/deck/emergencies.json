@@ -1,0 +1,10 @@
+[
+  {"id":"emg-001","type":"emergency","category":"emergency","title":"Market crash","situation":"The market drops sharply and savings or investments take a hit.","effect":"Lose money on the downturn.","moneyEffect":-200},
+  {"id":"emg-002","type":"emergency","category":"emergency","title":"Recession hits","situation":"A recession starts affecting income and hours.","effect":"Income or hours are reduced.","moneyEffect":-150},
+  {"id":"emg-003","type":"emergency","category":"emergency","title":"Natural disaster","situation":"A natural disaster damages home or belongings.","effect":"Pay for damage and recovery.","moneyEffect":-250},
+  {"id":"emg-004","type":"emergency","category":"emergency","title":"Flood","situation":"Flooding damages property and forces cleanup.","effect":"Pay flood damage and cleanup costs.","moneyEffect":-200},
+  {"id":"emg-005","type":"emergency","category":"emergency","title":"Storm damage","situation":"A severe storm damages property.","effect":"Pay for storm damage.","moneyEffect":-180},
+  {"id":"emg-006","type":"emergency","category":"emergency","title":"Wildfire risk","situation":"Wildfire risk forces evacuation and replacement costs.","effect":"Pay evacuation and replacement costs.","moneyEffect":-220},
+  {"id":"emg-007","type":"emergency","category":"emergency","title":"Major medical emergency","situation":"A serious medical emergency brings a large bill.","effect":"Pay a large unexpected medical cost.","moneyEffect":-300},
+  {"id":"emg-008","type":"emergency","category":"emergency","title":"Job loss shock","situation":"Income stops temporarily due to job loss.","effect":"Cover expenses without normal income.","moneyEffect":-200}
+]
