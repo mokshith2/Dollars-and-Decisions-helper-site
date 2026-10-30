@@ -5,7 +5,7 @@ import { GameBoard } from "./components/GameBoard";
 import { Log } from "./components/Log";
 import { MoneyAdjust } from "./components/MoneyAdjust";
 import { PlayerSetup } from "./components/PlayerSetup";
-import { defaultDeck, defaultGameSettings, type Card, type DeckData, type GameSettings, type LogEntry, type Player } from "./data";
+import { ADULT_AGE, cardFitsAge, defaultDeck, defaultGameSettings, pickWeighted, type Card, type DeckData, type GameSettings, type LogEntry, type Player } from "./data";
 import "./App.css";
 
 type Screen = "setup" | "game" | "deck";
@@ -76,6 +76,7 @@ export function App() {
   function drawCard(emergency: boolean) {
     if (!currentPlayer) return;
     if (emergency) {
+      if (Math.trunc(currentPlayer.position) < ADULT_AGE) { setNotice(`Emergency cards start at age ${ADULT_AGE}.`); return; }
       if (!deck.emergencies.length) { setNotice("There are no emergency cards in this deck. Add one in Edit deck."); return; }
       if (settings.emergencyDrawMode === "choose") {
         setChoosingEmergency(true); setDrawnCard(null); setCardDecision(""); setNotice(""); return;
@@ -84,10 +85,16 @@ export function App() {
     } else {
       const roll = Number(diceRoll);
       if (!diceRoll.trim() || !Number.isInteger(roll) || roll < settings.diceMinimum || roll > settings.diceMaximum) { setNotice(`Enter a whole-number dice roll from ${settings.diceMinimum} to ${settings.diceMaximum}.`); return; }
-      const regularCards = settings.regularDeck === "decisions" ? deck.decisions : settings.regularDeck === "events" ? deck.events : [...deck.decisions, ...deck.events];
-      if (!regularCards.length) { setNotice("The selected regular deck has no cards. Choose another deck or add cards in Deck setup."); return; }
-      const index = settings.drawMode === "random" ? Math.floor(Math.random() * regularCards.length) : ((Math.trunc(currentPlayer.position) + roll) % regularCards.length + regularCards.length) % regularCards.length;
-      setDrawnCard(regularCards[index]);
+      const age = Math.trunc(currentPlayer.position);
+      const baseCards = settings.regularDeck === "decisions" ? deck.decisions : settings.regularDeck === "events" ? deck.events : [...deck.decisions, ...deck.events];
+      const regularCards = baseCards.filter((card) => cardFitsAge(card, age));
+      if (!regularCards.length) { setNotice(`No cards in the selected deck fit age ${age}. Add cards in Deck setup or change the deck.`); return; }
+      const pickedIndex = (((age + roll) % regularCards.length) + regularCards.length) % regularCards.length;
+      const card = settings.drawMode === "random" ? pickWeighted(regularCards) : regularCards[pickedIndex];
+      const newAge = age + roll + (card.ageChange ?? 0);
+      setPlayers((current) => current.map((player) => player.id === currentPlayerId ? { ...player, position: newAge } : player));
+      setDiceRoll("");
+      setDrawnCard(card);
     }
     setChoosingEmergency(false); setCardDecision(""); setNotice("");
   }

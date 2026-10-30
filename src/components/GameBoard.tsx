@@ -39,9 +39,9 @@ export function GameBoard({ players, currentPlayerId, diceRoll, diceMinimum, dic
             <span className="field-hint">Match the player on the CPX board.</span>
           </div>
           <div className="field-group field-small">
-            <label htmlFor="board-position">Board position</label>
+            <label htmlFor="board-position">Age</label>
             <input id="board-position" name="board-position" type="number" inputMode="numeric" autoComplete="off" step="1" value={currentPlayer?.position ?? 0} onChange={(event) => onChangePosition(Number(event.target.value))} />
-            <span className="field-hint">Enter their current space.</span>
+            <span className="field-hint">Years so far. Each roll adds to it.</span>
           </div>
           <div className="field-group field-small">
             <label htmlFor="dice-roll">Dice roll</label>
@@ -68,7 +68,7 @@ export function GameBoard({ players, currentPlayerId, diceRoll, diceMinimum, dic
             <li key={player.id} className={player.id === currentPlayerId ? "player-row active" : "player-row"}>
               <button className="player-pick" type="button" onClick={() => onSelectPlayer(player.id)} aria-current={player.id === currentPlayerId ? "true" : undefined}>
                 <span className="player-mark" aria-hidden="true">{player.name.slice(0, 1).toLocaleUpperCase()}</span>
-                <span className="player-meta"><strong>{player.name}</strong><small>Position {player.position}</small></span>
+                <span className="player-meta"><strong>{player.name}</strong><small>Age {player.position}</small></span>
                 <span className="player-balance">{currency.format(player.balance)}</span>
               </button>
             </li>

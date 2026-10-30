@@ -19,7 +19,7 @@ Build the static site with `npm run build`; Vite writes the deployable files to 
 4. Enter the group’s decision and apply the card’s money effect (or another amount) to the balance.
 5. Use the quick adjustment controls for money changes outside a card.
 
-Regular cards use a temporary deterministic mapping based on position and dice roll; emergency cards are selected at random. This placeholder can change when the final CPX mapping is known.
+Regular cards use a temporary deterministic mapping: the player's age (starting age plus every roll so far) selects the card, and each draw adds the roll to their age; emergency cards are selected at random. This placeholder can change when the final CPX mapping is known.
 
 ## Edit the deck
 
